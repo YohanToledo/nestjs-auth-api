@@ -1,3 +1,4 @@
 export const MessagesHelper = {
-  PASSWORD_VALID: `A senha deve conter letras maiusculas, minusculas, caracteres especiais e numeros`,
+  PASSWORD_VALID: `Password must contain lower and upper case letter, special caraters and numbers!`,
+  EMAIL_OR_PASSWORD_INVALID: `Invalid Credentials`,
 };

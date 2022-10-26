@@ -3,6 +3,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
 import { UsersModule } from './components/users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UsersModule } from './components/users/users.module';
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
     } as TypeOrmModuleOptions),
     UsersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
