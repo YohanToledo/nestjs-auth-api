@@ -8,8 +8,9 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
-import { UpdateEvent } from 'typeorm';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateUserDto } from './dto/crete-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
@@ -19,11 +20,13 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   async findAll() {
     return this.usersService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
   async findOne(@Param('id') id: number) {
     return await this.usersService.findOneOrFail({ where: { id: id } });
   }
@@ -34,11 +37,13 @@ export class UsersController {
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
   async update(@Param('id') id: number, @Body() body: UpdateUserDto) {
     return await this.usersService.update(id, body);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id') id: number) {
     await this.usersService.delete(id);
