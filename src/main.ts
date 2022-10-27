@@ -13,7 +13,6 @@ async function bootstrap() {
     .setTitle('Authentication API')
     .setDescription('Registration and Login API for Coinomy project')
     .setVersion('1.0')
-    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

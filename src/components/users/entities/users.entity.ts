@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { hashSync } from 'bcrypt';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'users' })
 export class UsersEntity {
@@ -19,15 +20,19 @@ export class UsersEntity {
   email: string;
 
   @Column({ name: 'password' })
+  @Exclude()
   password: string;
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
+  @Exclude()
   createdAt?: Date;
 
   @UpdateDateColumn({ type: 'timestamp', name: 'updated_at' })
+  @Exclude()
   updatedAt?: Date;
 
   @DeleteDateColumn({ type: 'timestamp', name: 'deleted_at' })
+  @Exclude()
   deletedAt?: Date;
 
   @BeforeInsert()

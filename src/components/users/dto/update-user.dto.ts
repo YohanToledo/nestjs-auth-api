@@ -3,12 +3,12 @@ import { Matches, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 import { RegExHelper } from 'src/helper/regex.helper';
 
 export class UpdateUserDto {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ description: 'optional value' })
   @IsOptional()
   @IsNotEmpty()
   fullName: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ description: 'optional value' })
   @IsOptional()
   @IsNotEmpty()
   email: string;

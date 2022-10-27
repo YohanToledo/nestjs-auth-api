@@ -37,9 +37,11 @@ export class UsersService {
 
   async save(data: CreateUserDto) {
     const user = this.usersRepository.create(data);
-    return await this.usersRepository.save(user).catch(() => {
+    const createdUser = await this.usersRepository.save(user).catch(() => {
       throw new BadRequestException('Account with this email already exists.');
     });
+
+    return { fulllName: createdUser.fullName, email: createdUser.email };
   }
 
   async update(id: number, data) {
