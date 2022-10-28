@@ -10,6 +10,7 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Authentication API')
     .setDescription('Registration and Login API for Coinomy project')
     .setVersion('1.0')
