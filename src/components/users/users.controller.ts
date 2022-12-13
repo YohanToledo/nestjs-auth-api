@@ -33,7 +33,7 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOkResponse({ type: [ResponseAndReturnTypes.FindUserRes] })
   @ApiOperation({ summary: 'Find All Users' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT')
   async findAll() {
     return this.usersService.findAll();
   }
@@ -42,7 +42,7 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Find User by ID' })
   @ApiOkResponse({ type: ResponseAndReturnTypes.FindUserRes })
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT')
   async findOne(@Param('id') id: number) {
     return await this.usersService.findOneOrFail({
       where: { id: id },
@@ -71,7 +71,7 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Update User' })
   @ApiBody({ type: ResponseAndReturnTypes.UpdateUserExampleReq })
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT')
   async update(@Param('id') id: number, @Body() body: UpdateUserDto) {
     return await this.usersService.update(id, body);
   }
@@ -80,7 +80,7 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete User' })
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT')
   async delete(@Param('id') id: number) {
     await this.usersService.delete(id);
   }

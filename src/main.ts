@@ -12,12 +12,14 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .addBearerAuth(
       {
-        type: 'apiKey',
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
         description: 'JWT Authorization header using Bearer token. ',
         name: 'Authorization',
         in: 'headers',
       },
-      'Bearer',
+      'JWT',
     )
     .setTitle('Authentication API')
     .setDescription('Registration and Login API for Coinomy project')
