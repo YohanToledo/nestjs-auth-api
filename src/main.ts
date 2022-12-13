@@ -10,13 +10,21 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'apiKey',
+        description: 'JWT Authorization header using Bearer token. ',
+        name: 'Authorization',
+        in: 'headers',
+      },
+      'Bearer',
+    )
     .setTitle('Authentication API')
     .setDescription('Registration and Login API for Coinomy project')
-    .setVersion('1.0')
+    .setVersion('v1')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('api/v1/docs', app, document);
 
   await app.listen(3000);
 }
