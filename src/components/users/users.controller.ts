@@ -73,7 +73,7 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Update User' })
   @ApiBody({ type: ResponseAndReturnTypes.UpdateUserExampleReq })
-  @ApiNoContentResponse({ status: 200 })
+  @ApiOkResponse({ status: 200 })
   @ApiBearerAuth('JWT')
   async update(@Param('id') id: number, @Body() body: UpdateUserDto) {
     return await this.usersService.update(id, body);
@@ -83,6 +83,7 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Update Password' })
   @ApiBody({ type: UpdatePasswordDto })
+  @ApiNoContentResponse({ status: 200 })
   @ApiBearerAuth('JWT')
   async updatePassword(
     @Param('id') id: number,

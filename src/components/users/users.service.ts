@@ -49,7 +49,10 @@ export class UsersService {
   async update(id: number, data) {
     const user = await this.findOneOrFail({ where: { id: id } });
     this.usersRepository.merge(user, data);
-    return await this.usersRepository.save(user);
+    const success = await this.usersRepository.save(user);
+    if (success) {
+      return { message: 'Updated Successfully' };
+    }
   }
 
   async updatePassword(id: number, data: UpdatePasswordDto) {
