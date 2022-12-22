@@ -1,3 +1,5 @@
+import { compareSync, hashSync } from 'bcrypt';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 import {
   BadRequestException,
   Injectable,
@@ -48,6 +50,25 @@ export class UsersService {
     const user = await this.findOneOrFail({ where: { id: id } });
     this.usersRepository.merge(user, data);
     return await this.usersRepository.save(user);
+  }
+
+  async updatePassword(id: number, data: UpdatePasswordDto) {
+    const user = await this.findOneOrFail({ where: { id: id } });
+    const isPasswordValid = compareSync(data.currentPassword, user.password);
+    console.log(isPasswordValid);
+
+    if (isPasswordValid) {
+      user.password = hashSync(data.newPassword, 10);
+      const successUpdate = await this.usersRepository.save(user);
+
+      if (successUpdate) {
+        return;
+      }
+    } else {
+      throw new BadRequestException({
+        message: 'currentPassword value does not match current password stored',
+      });
+    }
   }
 
   async delete(id: number) {

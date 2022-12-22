@@ -18,10 +18,12 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiTags,
+  ApiNoContentResponse,
 } from '@nestjs/swagger';
 import { ResponseAndReturnTypes } from 'src/helper/swagger.helper';
 import { CreateUserDto } from './dto/crete-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UsersService } from './users.service';
 
 @ApiTags('Users')
@@ -71,9 +73,22 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Update User' })
   @ApiBody({ type: ResponseAndReturnTypes.UpdateUserExampleReq })
+  @ApiNoContentResponse({ status: 200 })
   @ApiBearerAuth('JWT')
   async update(@Param('id') id: number, @Body() body: UpdateUserDto) {
     return await this.usersService.update(id, body);
+  }
+
+  @Put('/password/:id')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ summary: 'Update Password' })
+  @ApiBody({ type: UpdatePasswordDto })
+  @ApiBearerAuth('JWT')
+  async updatePassword(
+    @Param('id') id: number,
+    @Body() body: UpdatePasswordDto,
+  ) {
+    return await this.usersService.updatePassword(id, body);
   }
 
   @Delete(':id')

@@ -67,6 +67,11 @@ class FindUserRes {
   deletedAt?: Date;
 }
 
+class UpdatePasswordReq {
+  @ApiProperty()
+  token: string;
+}
+
 export const ResponseAndReturnTypes = {
   LoginExampleReq,
   JwtExampleRes,
@@ -74,4 +79,5 @@ export const ResponseAndReturnTypes = {
   UpdateUserExampleReq,
   UserCreatedRes,
   FindUserRes,
+  UpdatePasswordReq,
 };
